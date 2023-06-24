@@ -225,8 +225,26 @@ for(var i = 2;i<= num;i++) {
 // 2 (the least significant digit of 248832, which is 12 * 12 * 12 * 12 * 12).
 
 
-
-
+function lastDigitAtoB(a, b) {
+    if (b === 0) {
+      return 1; // Any number raised to the power of 0 is 1
+    }
+  
+    // Calculate the last digit using modular arithmetic
+    let lastDigit = 1;
+    let base = a % 10;
+  
+    while (b > 0) {
+      if (b % 2 === 1) {
+        lastDigit = (lastDigit * base) % 10;
+      }
+  
+      base = (base * base) % 10;
+      b = Math.floor(b / 2);
+    }
+  
+    return lastDigit;
+  }
 
 
 // *** Clock Hand Angles
@@ -238,3 +256,20 @@ for(var i = 2;i<= num;i++) {
 // degrees in a full arc rotation. Treat “straight-up” 12:00:00 as 0 degrees for all hands.
 
   
+
+
+function clockHandAngles(seconds) {
+    var angleHours = 0;
+    var angleMinutes = 0;
+    var angleSeconds = 0;
+  
+    var hours = Math.floor(seconds / 3600) % 12;
+    var minutes = Math.floor(seconds / 60) % 60;
+    seconds = seconds % 60;
+  
+    angleHours = (hours * 30) + (minutes * 0.5) + (seconds * (1 / 120));
+    angleMinutes = (minutes * 6) + (seconds * 0.1);
+    angleSeconds = seconds * 6;
+  
+    console.log("Time Rotation (Angle Hours, Angle Minutes, Angle Seconds): " + [angleHours, angleMinutes, angleSeconds]);
+  }
